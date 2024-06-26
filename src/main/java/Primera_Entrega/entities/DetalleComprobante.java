@@ -1,19 +1,20 @@
-package Primera_Entrega;
+package Primera_Entrega.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @Entity
 public class DetalleComprobante {
-    @Id()
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "comprobante_id")
     private Comprobante comprobante;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 
     @Column
@@ -22,12 +23,21 @@ public class DetalleComprobante {
     @Column
     private int preciototal;
 
-    public DetalleComprobante(){}
+    public DetalleComprobante() {}
+
     public DetalleComprobante(Comprobante comprobante, Producto producto, int cantidad, int preciototal) {
         this.comprobante = comprobante;
         this.producto = producto;
         this.cantidad = cantidad;
         this.preciototal = preciototal;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Comprobante getComprobante() {
@@ -73,5 +83,16 @@ public class DetalleComprobante {
     @Override
     public int hashCode() {
         return Objects.hash(id, comprobante, producto, cantidad, preciototal);
+    }
+
+    @Override
+    public String toString() {
+        return "DetalleComprobante{" +
+                "id=" + id +
+                ", comprobante=" + comprobante +
+                ", producto=" + producto +
+                ", cantidad=" + cantidad +
+                ", preciototal=" + preciototal +
+                '}';
     }
 }
