@@ -3,7 +3,7 @@ package Primera_Entrega.managers;
 import Primera_Entrega.entities.Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class GestorCliente {
@@ -13,9 +13,14 @@ public class GestorCliente {
         EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
-            Cliente cliente = new Cliente(nombre,apellido,edad,dni,puntos);
-            manager.persist(cliente);
-            transaction.commit();
+            Cliente clienteExistente = manager.find(Cliente.class, dni);
+            if (clienteExistente != null) {
+                System.out.println("Ya existe un cliente con DNI: " + dni);
+            } else {
+                Cliente cliente = new Cliente(nombre, apellido, edad, dni, puntos);
+                manager.persist(cliente);
+                transaction.commit();
+            }
         } catch (Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
@@ -30,7 +35,8 @@ public class GestorCliente {
         EntityManager manager = Manager.get();
         List<Cliente> lista = null;
         try {
-            lista = manager.createQuery("FROM Cliente", Cliente.class).getResultList();
+            TypedQuery<Cliente> query = manager.createQuery("SELECT c FROM Cliente c", Cliente.class);
+            lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Error al leer todos los clientes: " + e.getMessage());
         } finally {

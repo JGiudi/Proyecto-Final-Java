@@ -8,16 +8,16 @@ import java.util.Objects;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private String nombre;
 
     @Column
-    private int precio;
+    private Integer precio;
 
     @Column
-    private int stock;
+    private Integer stock;
 
     @OneToMany(mappedBy = "producto_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> carts;
@@ -27,17 +27,17 @@ public class Producto {
 
     public Producto() {}
 
-    public Producto(String nombre, int precio, int stock) {
+    public Producto(String nombre, Integer precio, Integer stock) {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,19 +49,19 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public int getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(Integer precio) {
         this.precio = precio;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 

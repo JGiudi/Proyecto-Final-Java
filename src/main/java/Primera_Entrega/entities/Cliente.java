@@ -17,13 +17,13 @@ public class Cliente {
     private String apellido;
 
     @Column
-    private int edad;
+    private Integer edad;
 
     @Column
-    private int dni;
+    private Integer dni;
 
     @Column
-    private int puntos;
+    private Integer puntos;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comprobante> comprobantes;
@@ -33,7 +33,7 @@ public class Cliente {
 
     public Cliente() {}
 
-    public Cliente(String nombre, String apellido, int edad, int dni, int puntos) {
+    public Cliente(String nombre, String apellido, Integer edad, Integer dni, Integer puntos) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -65,27 +65,27 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
-    public int getDni() {
+    public Integer getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
 
-    public int getPuntos() {
+    public Integer getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(int puntos) {
+    public void setPuntos(Integer puntos) {
         this.puntos = puntos;
     }
 
@@ -102,12 +102,17 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return edad == cliente.edad && dni == cliente.dni && puntos == cliente.puntos && Objects.equals(id, cliente.id) && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellido, cliente.apellido) && Objects.equals(comprobantes, cliente.comprobantes) && Objects.equals(carts, cliente.carts);
+        return Objects.equals(id, cliente.id) &&
+                Objects.equals(nombre, cliente.nombre) &&
+                Objects.equals(apellido, cliente.apellido) &&
+                Objects.equals(edad, cliente.edad) &&
+                Objects.equals(dni, cliente.dni) &&
+                Objects.equals(puntos, cliente.puntos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, apellido, edad, dni, puntos, comprobantes, carts);
+        return Objects.hash(id, nombre, apellido, edad, dni, puntos);
     }
 
     @Override
@@ -119,8 +124,6 @@ public class Cliente {
                 ", edad=" + edad +
                 ", dni=" + dni +
                 ", puntos=" + puntos +
-                //", comprobantes=" + comprobantes +
-                //", carts=" + carts +
                 '}';
     }
 }

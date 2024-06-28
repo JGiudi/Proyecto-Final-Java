@@ -18,14 +18,14 @@ public class DetalleComprobante {
     private Producto producto;
 
     @Column
-    private int cantidad;
+    private Integer cantidad;
 
     @Column
-    private int preciototal;
+    private Integer preciototal;
 
     public DetalleComprobante() {}
 
-    public DetalleComprobante(Comprobante comprobante, Producto producto, int cantidad, int preciototal) {
+    public DetalleComprobante(Comprobante comprobante, Producto producto, Integer cantidad, Integer preciototal) {
         this.comprobante = comprobante;
         this.producto = producto;
         this.cantidad = cantidad;
@@ -56,7 +56,7 @@ public class DetalleComprobante {
         this.producto = producto;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
@@ -64,7 +64,7 @@ public class DetalleComprobante {
         this.cantidad = cantidad;
     }
 
-    public int getPreciototal() {
+    public Integer getPreciototal() {
         return preciototal;
     }
 

@@ -33,28 +33,36 @@ public class Main {
 
         // Agregar productos al carrito del cliente
         Cliente cliente = gestorCliente.read(12345678);
-        Producto producto1 = gestorProducto.readOne(1);
-        Producto producto2 = gestorProducto.readOne(2);
+        if (cliente != null) {
+            Producto producto1 = gestorProducto.readOne(1);
+            Producto producto2 = gestorProducto.readOne(2);
 
-        GestorCart gestorCart = new GestorCart();
-        gestorCart.addToCart(2, producto1, cliente);
-        gestorCart.addToCart(1, producto2, cliente);
+            if (producto1 != null && producto2 != null) {
+                GestorCart gestorCart = new GestorCart();
+                gestorCart.addToCart(2, producto1, cliente);
+                gestorCart.addToCart(1, producto2, cliente);
 
-        // Leer carrito del cliente
-        List<Cart> carts = gestorCart.readByClient(cliente);
-        System.out.println("Carrito del cliente:");
-        for (Cart cart : carts) {
-            System.out.println(cart);
+                // Leer carrito del cliente
+                List<Cart> carts = gestorCart.readByClient(cliente);
+                System.out.println("Carrito del cliente:");
+                for (Cart cart : carts) {
+                    System.out.println(cart);
+                }
+
+                // Crear un comprobante para el cliente
+                GestorComprobante gestorComprobante = new GestorComprobante();
+                gestorComprobante.create(LocalDateTime.now(), cliente);
+
+                // Crear detalle de comprobante
+                Comprobante comprobante = new Comprobante(LocalDateTime.now(), cliente);
+                GestorDetalleComprobante gestorDetalleComprobante = new GestorDetalleComprobante();
+                gestorDetalleComprobante.create(comprobante, producto1, 2, producto1.getPrecio() * 2);
+            } else {
+                System.out.println("Uno o ambos productos no fueron encontrados.");
+            }
+        } else {
+            System.out.println("Cliente no encontrado.");
         }
-
-        // Crear un comprobante para el cliente
-        GestorComprobante gestorComprobante = new GestorComprobante();
-        gestorComprobante.create(LocalDateTime.now(), cliente);
-
-        // Crear detalle de comprobante
-        Comprobante comprobante = new Comprobante(LocalDateTime.now(), cliente);
-        GestorDetalleComprobante gestorDetalleComprobante = new GestorDetalleComprobante();
-        gestorDetalleComprobante.create(comprobante, producto1, 2, producto1.getPrecio() * 2);
 
         // Actualizar producto
         gestorProducto.update(1, "Producto 1 Modificado", 15, 150);
@@ -62,4 +70,5 @@ public class Main {
         // Eliminar producto
         gestorProducto.delete(2);
     }
+
 }
