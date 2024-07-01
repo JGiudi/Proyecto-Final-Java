@@ -10,8 +10,8 @@ public class Main {
     public static void main(String[] args) {
         // Crear algunos productos
         GestorProducto gestorProducto = new GestorProducto();
-        gestorProducto.create("Producto 1", 10, 100);
-        gestorProducto.create("Producto 2", 20, 200);
+        gestorProducto.create("Producto 1", 100, 10);
+        gestorProducto.create("Producto 2", 200, 20);
 
         // Crear un cliente
         GestorCliente gestorCliente = new GestorCliente();
@@ -65,10 +65,9 @@ public class Main {
         }
 
         // Actualizar producto
-        gestorProducto.update(1, "Producto 1 Modificado", 15, 150);
+        gestorProducto.update(1, "Producto 1 Modificado", 150, 15);
 
         // Eliminar producto
         gestorProducto.delete(2);
     }
-
 }
